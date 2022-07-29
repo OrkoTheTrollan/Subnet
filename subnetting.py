@@ -13,12 +13,11 @@ def make_dpi_aware():
     global logo
     if platform.system() == 'Windows' and int(platform.release()) >= 8: 
         ctypes.windll.shcore.SetProcessDpiAwareness(True)
-        logo='logo_large.png'
-    #return logo        
+        logo='logo_large.png'     
 
 
 cprint = sg.cprint
-MLINE_KEY = '-ML-' #+sg.WRITE_ONLY_KEY   # multiline element's key. Indicate it's an output only element
+MLINE_KEY = '-ML-' #+sg.WRITE_ONLY_KEY   # multiline element's key. Indicate it's an output only element, but if activated, it produces a failure, when saving in data.txt
 
 output_key = MLINE_KEY
 
@@ -49,11 +48,7 @@ def settings_window():
         if event in (sg.WINDOW_CLOSED, 'Exit'):
             break
         if event == 'Save':
-            # Save some of the values as user settings
-            #sg.user_settings_set_entry('-input-', values['-IN-'])
             sg.user_settings_set_entry('-theme-', values['-LISTBOX-'][0])
-            #sg.user_settings_set_entry('-option1-', values['-CB1-'])
-            #sg.user_settings_set_entry('-option2-', values['-CB2-'])
 
         # if the theme was changed, restart the window
         if values['-LISTBOX-'][0] != current_theme:
@@ -131,7 +126,6 @@ def main():
     menu_def = [['&File', ['&Save', '&Settings', 'E&xit' ]],
                 ['&Help', '&About...'],]
 
-    #right_click_menu = ['Unused', ['Right', '!&Click', '&Menu', 'E&xit', 'Properties']]
 
      # ------ GUI Defintion ------ #
     layout = [
